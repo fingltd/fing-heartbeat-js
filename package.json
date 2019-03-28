@@ -1,0 +1,25 @@
+{
+  "name": "fing-heartbeat",
+  "version": "1.0.0",
+  "description": "Client for Fing Heartbeat Infrastructure",
+  "main": "index.js",
+  "bin": {
+    "fing-hb-cli": "bin/fing-hb-cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fing",
+    "heartbeat"
+  ],
+  "author": "Tommaso Latini",
+  "license": "ISC",
+  "dependencies": {
+    "argparse": "^1.0.9",
+    "macaddress": "^0.2.9",
+    "root-require": "^0.3.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
