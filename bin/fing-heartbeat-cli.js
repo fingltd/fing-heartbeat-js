@@ -8,7 +8,6 @@
 
 const Heartbeat = require("../src/heartbeat");
 
-const dateFormat = require('dateformat');
 const root = require('root-require');
 const argparse = require('argparse');
 const macaddress = require('macaddress');
@@ -23,9 +22,16 @@ function parseMac(mac) {
 }
 
 function log(status) {
-    console.log('[%s] Status: %s. Register: %s. GeoServer: %s. TTL: %s. Last Sent @ [%s] Code: %s (%s)',
-        status.time.toISOString(), status.status, status.registerUrl, status.geoUrl ,status.ttl,
-        status.last_sent.toISOString(), status.reason, status.code);
+    console.log("+ ---------------------------------------------- +");
+    console.log("| Time: [%s]", status.time.toISOString());
+    console.log('| Status: %s',status.status);
+    console.log('| Server: %s', status.registerUrl);
+    console.log('| GeoServer: %s', status.geoUrl);
+    console.log('| TTL: %s', status.ttl);
+    console.log('| Last Sent @ [%s]', status.last_sent.toISOString());
+    console.log('| Code: %s.', status.code);
+    console.log('| Reason: %s.', status.reason);
+    console.log("+ ---------------------------------------------- +");
 }
 
 function run(args) {

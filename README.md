@@ -1,41 +1,67 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your 
-application up and running.
+A node.js package with a usable client for Fing Heartbeat infrastructure.
+The package comes with a Command Line Interface that might help in 
+the configuration.
 
-### What is this repository for? ###
+### Modifications ###
 
-* Quick summary
+* Server and ApiKey as external input
+* CLI to provide examples of usages
 
-This package contains a usable client for Fing Heartbeat infrastructure.
+### Installation ###
 
-* Version
+```
+npm install fing-heartbeat
+fing-heartbeat-cli --help
+```
 
-See package.json file.
+### Usage ###
 
-### How do I get set up? ###
+* Setup
 
-* Summary of set up
+```
+var Heartbeat = require(“fing-heartbeat”);
 
-The package comes with a Command Line Interface that might help in the configuration.
-To integrate it in your own server you can use the following snippet of code:
+const server = "hb.example.com";
+const api_key = "2664a5e44f0f13400f261b41b7ccabaa";
 
-* Api Key
+const checkPeriod = 10 * 60 * 1000;
 
-The Api Key should be asked to Fing Infrastucture team.
+var hb = new Heartbeat(, “007007007007”, “DEADC0DEBEEF”);
 
-* Dependencies
+hb.start();
 
-Look to package.json
+setInterval(function () {
+  var status = hb.status();
+}, checkPeriod);
 
-### Who do I talk to? ###
+```
 
-* Corporate
+| - | ------------------- | --------- | ------------------------------------------------------------ |
+| # | Parameter           | Mandatory | Description                                                  |
+| - | ------------------- | --------- | ------------------------------------------------------------ |
+| 1 | server              |    YES    | Host Name of server implementing Fing Heartbeat Protocol     |
+| 2 | apiKey              |    YES    | Api Key (required for authentication)                        |
+| 3 | macAddress          |    YES    | MAC address of device                                        |
+| 4 | gwMacAddress        |    YES    | MAC address of network gateway. If in a router, same as mac. |
+| 5 | uuid                |    NO     | Unique ID of the device, if available. E.g. serial number.   |
+| 6 | brand               |    NO     | Brand name                                                   |
+| 7 | model               |    NO     | Model of the device                                          |
+| 8 | hwPlatform          |    NO     | Hardware platform of the device                              |
+| - | ------------------- | --------- | ------------------------------------------------------------ |
 
-Fing Ltd 
-www.fing.com
+* Teardown
 
-* Repo owner or admin
+```
+hb.stop();
+```
 
-Tommaso Latini <tommaso@fing.com>
+### License ###
+
+(c) 2016-2019 Fing LTD, MIT license.
+
+### Author ###
+
+Tommaso Latini <tommaso at fing.com>
 

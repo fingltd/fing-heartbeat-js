@@ -4,7 +4,7 @@
   "description": "Client for Fing Heartbeat Infrastructure",
   "main": "index.js",
   "bin": {
-    "fing-hb-cli": "bin/fing-hb-cli.js"
+    "fing-heartbeat": "bin/fing-hb-cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
