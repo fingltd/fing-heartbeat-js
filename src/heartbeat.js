@@ -80,6 +80,7 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
     }
 
     function handleError(err) {
+        result = FAIL; // Use fail also for other error
         ttl -= ttl > 0 ? 1 : 0;
         reason = err;
         // console.error("Error: %s. TTL: %s", error, ttl);
