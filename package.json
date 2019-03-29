@@ -4,7 +4,7 @@
   "description": "Client for Fing Heartbeat Infrastructure",
   "main": "index.js",
   "bin": {
-    "fing-heartbeat": "bin/fing-hb-cli.js"
+    "fing-heartbeat": "fing-heartbeat-cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +14,7 @@
     "heartbeat"
   ],
   "author": "Tommaso Latini",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "argparse": "^1.0.9",
     "macaddress": "^0.2.9",

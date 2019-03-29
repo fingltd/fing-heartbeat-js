@@ -38,7 +38,6 @@ setInterval(function () {
 
 ```
 
-| - | ------------------- | --------- | ------------------------------------------------------------ |
 | # | Parameter           | Mandatory | Description                                                  |
 | - | ------------------- | --------- | ------------------------------------------------------------ |
 | 1 | server              |    YES    | Host Name of server implementing Fing Heartbeat Protocol     |
@@ -49,7 +48,6 @@ setInterval(function () {
 | 6 | brand               |    NO     | Brand name                                                   |
 | 7 | model               |    NO     | Model of the device                                          |
 | 8 | hwPlatform          |    NO     | Hardware platform of the device                              |
-| - | ------------------- | --------- | ------------------------------------------------------------ |
 
 * Teardown
 
