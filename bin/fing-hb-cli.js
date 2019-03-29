@@ -8,6 +8,7 @@
 
 const Heartbeat = require("../src/heartbeat");
 
+const dateFormat = require('dateformat');
 const root = require('root-require');
 const argparse = require('argparse');
 const macaddress = require('macaddress');
@@ -23,8 +24,10 @@ function parseMac(mac) {
 
 function log(status) {
     console.log('[%s] Status: %s. Register: %s. GeoServer: %s. TTL: %s. Last Sent @ [%s] Code: %s (%s)',
-        status.time, status.status, status.registerUrl, status.geoUrl ,status.ttl, status.last_sent, status.reason, status.code);
+        status.time.toISOString(), status.status, status.registerUrl, status.geoUrl ,status.ttl,
+        status.last_sent.toISOString(), status.reason, status.code);
 }
+
 function run(args) {
 
     hb = new Heartbeat(
@@ -65,7 +68,7 @@ var parser = new argparse.ArgumentParser({
 
 // Add arguments
 
-// Mandatory
+//   *) Mandatory
 parser.addArgument(['-s', '--heartbeat_server'], {
     help: "Heartebeat Server"
 });
@@ -79,7 +82,7 @@ parser.addArgument(['-g', '--gateway_mac'], {
     help: "MAC address of network gateway. If in a router, same as mac."
 });
 
-// Optional
+//   *) Optional
 parser.addArgument(['-u', '--uuid'], {
     help: "Unique ID of the device, if available. E.g. serial number.",
     defaultValue: null
@@ -101,9 +104,6 @@ parser.addArgument(['-l', '--log_status_every'], {
     defaultValue: null
 });
 
-
-
-
 // Parse CLI options and set properly the environment variables
 var args = parser.parseArgs();
 
@@ -112,10 +112,10 @@ if (!args.heartbeat_server) {
    throw new Error("Missing Heartbeat Server");
 }
 if (!args.api_key) {
-    throw new Error("Missing Mac Address");
+    throw new Error("Missing Api Key for Authentication");
 }
 if (!args.gateway_mac) {
-    throw new Error("Missing Mac Address");
+    throw new Error("Missing Mac Address of Gateway");
 }
 
 console.log("+------------------------------------------------+");
@@ -127,7 +127,8 @@ console.log("    |_|   |_|_| |_|\\__, |");
 console.log("                   |___/");
 console.log("              HEARTBEAT COMMAND LINE");
 console.log("+------------------------------------------------+");
-console.log("[%s] Start %s [%s]", new Date(), name, version);
+console.log("Starting %s [%s] ...", name, version);
+console.log("");
 
 
 if (!args.mac) {
