@@ -106,7 +106,7 @@ parser.addArgument(['-p', '--platform'], {
     defaultValue: null
 });
 parser.addArgument(['-l', '--log_status_every'], {
-    help: "Print status every STATUSE_EVERY seconds",
+    help: "Print status every LOG_STATUS_EVERY seconds",
     defaultValue: null
 });
 
