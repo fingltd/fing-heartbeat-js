@@ -23,14 +23,9 @@ function parseMac(mac) {
 
 function log(status) {
     console.log("+ ---------------------------------------------- +");
-    console.log("| Time: [%s]", status.time.toISOString());
-    console.log('| Status: %s',status.status);
-    console.log('| Server: %s', status.registerUrl);
-    console.log('| GeoServer: %s', status.geoUrl);
-    console.log('| TTL: %s', status.ttl);
-    console.log('| Last Sent @ [%s]', status.last_sent.toISOString());
-    console.log('| Code: %s.', status.code);
-    console.log('| Reason: %s.', status.reason);
+    console.log('| Servers => { Register: %s, Geo: %s}', status.registerUrl, status.geoUrl);
+    console.log('| Last Sent @ [%s] to %s', status.last_sent.toISOString(), status.last_url);
+    console.log('| %s | TTL: %s. Status = %d [%s]', status.status, status.ttl,status.code, status.reason);
     console.log("+ ---------------------------------------------- +");
 }
 
@@ -49,16 +44,21 @@ function run(args) {
 
     hb.start();
 
+    var last_log = 0;
+
     setInterval(function () {
         var status = hb.status();
-        log(status);
+        last_log = Date.now();
+        if (last_log < status.last_sent) {
+
+        }
     }, args.log_status_every * 1000);
 }
 
 process.on('SIGINT', function() {
     if (hb != null) {
         var status = hb.status();
-        log(status);
+        console.log("Stopping %s [%s] ...", name, version);
         hb.stop();
     }
     process.exit();

@@ -22,6 +22,7 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
     var reason = "";
     var registerUrl = buildUrl(server);
     var geoHbUrl = null;
+    var url = null;
     var osName = os.platform();
     var osVersion = os.release();
     var headers = {
@@ -55,12 +56,26 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
         return "https://" + host + "/2/heartbeat";
     }
 
+    function heartbeat() {
+
+        url = ttl == 0 ? registerUrl : geoHbUrl;
+
+        return request({
+            url: url,
+            method: "POST",
+            headers: headers,
+            json: body
+        })
+        .then(handleResponse)
+        .catch(handleError);
+    }
+
     function handleResponse(body) {
 
         last = new Date();
         result = body['result'];
 
-        //console.log("[%s] Sent request to '%s' => %s", new Date(), url, result);
+        // console.log("[%s] Sent request to '%s' => %s", last.toISOString(), url, result);
 
         if (result == REROUTE) {
             geoHbUrl = buildUrl(body['reroute-host']);
@@ -86,27 +101,10 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
         // console.error("Error: %s. TTL: %s", error, ttl);
     }
 
-    function doRequest(url) {
-
-        return request({
-            url: url,
-            method: "POST",
-            headers: headers,
-            json: body
-        })
-        .then(handleResponse)
-        .catch(handleError);
-    }
-
-    function heartbeat() {
-
-        var url = ttl == 0 ? registerUrl : geoHbUrl;
-        doRequest(url);
-    }
-
     /**
      * Post Condition:
      *
+     *    heartbeat service started
      *    id == Timeout Object
      */
     function start() {
@@ -117,13 +115,13 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
         }
 
         heartbeat();
+
         id = setInterval(heartbeat, PERIOD);
     }
 
     function status() {
         var ret = {};
 
-        ret.time = new Date();
         ret.status = (id != null) ? "RUNNING" : "READY";
         ret.registerUrl = registerUrl;
         ret.geoUrl = geoHbUrl;
@@ -131,6 +129,7 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
         ret.code = result;
         ret.reason = reason;
         ret.last_sent = last;
+        ret.last_url = url;
 
         return ret;
     }
@@ -138,6 +137,7 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
     /**
      * Post Condition:
      *
+     *    heartbeat service stopped
      *    id == null
      */
     function stop() {
