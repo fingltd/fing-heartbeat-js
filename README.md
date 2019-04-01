@@ -6,8 +6,15 @@ the configuration.
 
 ### Modifications ###
 
-* Server and ApiKey as external input
-* CLI to provide examples of usages
+* v1.0.2
+    * Fix README w/ per version modifications
+* v1.0.1
+    * Server and ApiKey as external input
+* v1.0.0
+    * Heartbeat client
+    * CLI to provide examples of usages
+ 
+
 
 ### Installation ###
 
@@ -41,6 +48,14 @@ setInterval(function () {
 
 ```
 
+* Teardown
+
+```
+hb.stop();
+```
+
+### Parameters ###
+
 | # | Parameter           | Mandatory | Description                                                  |
 | - | ------------------- | --------- | ------------------------------------------------------------ |
 | 1 | server              |    YES    | Host Name of server implementing Fing Heartbeat Protocol     |
@@ -52,11 +67,6 @@ setInterval(function () {
 | 7 | model               |    NO     | Model of the device                                          |
 | 8 | hwPlatform          |    NO     | Hardware platform of the device                              |
 
-* Teardown
-
-```
-hb.stop();
-```
 
 ### License ###
 
