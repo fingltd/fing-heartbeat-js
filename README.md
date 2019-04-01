@@ -4,18 +4,6 @@ A node.js package with a usable client for Fing Heartbeat infrastructure.
 The package comes with a Command Line Interface that might help in 
 the configuration.
 
-### Modifications ###
-
-* v1.0.2
-    * Fix README w/ per version modifications
-* v1.0.1
-    * Server and ApiKey as external input
-* v1.0.0
-    * Heartbeat client
-    * CLI to provide examples of usages
- 
-
-
 ### Installation ###
 
 ```
@@ -67,6 +55,15 @@ hb.stop();
 | 7 | model               |    NO     | Model of the device                                          |
 | 8 | hwPlatform          |    NO     | Hardware platform of the device                              |
 
+### Modifications ###
+
+* v1.0.2
+    * Fix README w/ per-version modifications
+* v1.0.1
+    * Server and ApiKey as external input
+* v1.0.0
+    * Heartbeat client
+    * CLI to provide examples of usages
 
 ### License ###
 
