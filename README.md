@@ -25,15 +25,18 @@ var Heartbeat = require(“fing-heartbeat”);
 
 const server = "hb.example.com";
 const api_key = "2664a5e44f0f13400f261b41b7ccabaa";
-
+const mac = "00:70:07:00:70:07";
+const gatewayMac = "DE:AD:C0:DE:BE:EF"
+ 
 const checkPeriod = 10 * 60 * 1000;
 
-var hb = new Heartbeat(, “007007007007”, “DEADC0DEBEEF”);
+var hb = new Heartbeat(server, api_key, mac, gatewayMac);
 
 hb.start();
 
 setInterval(function () {
   var status = hb.status();
+  console.log(status);
 }, checkPeriod);
 
 ```
