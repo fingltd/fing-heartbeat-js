@@ -29,31 +29,35 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
         'User-Agent': "fing-hb-node",
         'X-API-Key': key
     };
-    var body = {
+    var requestBody = {
         device: {
-            mac: mac,
-            gatewaymac: gateway
+            mac: cleanMacAddress(mac),
+            gatewaymac: cleanMacAddress(gateway)
         }
     };
     var result = "UNKNOWN";
     var last;
 
     if (uuid)
-        body.device['uuid'] = uuid;
+        requestBody.device['uuid'] = uuid;
     if (brand)
-        body.device['brand'] = brand;
+        requestBody.device['brand'] = brand;
     if (model)
-        body.device['model'] = model;
+        requestBody.device['model'] = model;
     if (platform)
-        body.device['hw-platform'] = platform;
+        requestBody.device['hw-platform'] = platform;
     if (osName)
-        body.device['os-name'] = osName;
+        requestBody.device['os-name'] = osName;
     if (osVersion)
-        body.device['os-ver'] = osVersion;
+        requestBody.device['os-ver'] = osVersion;
 
 
     function buildUrl(host) {
         return "https://" + host + "/2/heartbeat";
+    }
+
+    function cleanMacAddress(mac) {
+        return mac.replace(/:/g,'').toLocaleUpperCase();
     }
 
     function heartbeat() {
@@ -64,31 +68,31 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
             url: url,
             method: "POST",
             headers: headers,
-            json: body
+            json: requestBody
         })
         .then(handleResponse)
         .catch(handleError);
     }
 
-    function handleResponse(body) {
+    function handleResponse(responseBody) {
 
         last = new Date();
-        result = body['result'];
+        result = responseBody['result'];
 
-        // console.log("[%s] Sent request to '%s' => %s", last.toISOString(), url, result);
+        //console.log("[%s] Sent request to '%s' w/ body '%s' => %s", last.toISOString(), url, JSON.stringify(requestBody), result);
 
         if (result == REROUTE) {
-            geoHbUrl = buildUrl(body['reroute-host']);
-            ttl = body['host-ttl-on-error'];
+            geoHbUrl = buildUrl(responseBody['reroute-host']);
+            ttl = responseBody['host-ttl-on-error'];
             reason = "ok";
             // Sent immediately
             heartbeat();
         } else if (result == OK) {
             // Update TTL
-            ttl = body['host-ttl-on-error'];
+            ttl = responseBody['host-ttl-on-error'];
             reason = "ok";
         } else if (result == FAIL) {
-            handleError(body['error-descr']);
+            handleError(responseBody['error-descr']);
         } else {
             handleError("Unknown");
         }
@@ -98,7 +102,7 @@ function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
         result = FAIL; // Use fail also for other error
         ttl -= ttl > 0 ? 1 : 0;
         reason = err;
-        // console.error("Error: %s. TTL: %s", error, ttl);
+        // console.error("Error: %s. TTL: %s", err, ttl);
     }
 
     /**
