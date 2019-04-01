@@ -1,6 +1,6 @@
 {
   "name": "fing-heartbeat",
-  "version": "1.0.1-rc3",
+  "version": "1.0.1",
   "description": "Client for Fing Heartbeat Infrastructure",
   "main": "index.js",
   "bin": {
