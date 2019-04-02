@@ -18,12 +18,12 @@ fing-heartbeat-cli --help
 ```
 var Heartbeat = require(“fing-heartbeat”);
 
-const server = "hb.example.com";
-const api_key = "2664a5e44f0f13400f261b41b7ccabaa";
-const mac = "00:70:07:00:70:07";
-const gatewayMac = "DE:AD:C0:DE:BE:EF"
+var server = "hb.example.com";
+var api_key = "2664a5e44f0f13400f261b41b7ccabaa";
+var mac = "00:70:07:00:70:07";
+var gatewayMac = "DE:AD:C0:DE:BE:EF"
  
-const checkPeriod = 10 * 60 * 1000;
+var checkPeriod = 10 * 60 * 1000;
 
 var hb = new Heartbeat(server, api_key, mac, gatewayMac);
 
@@ -57,6 +57,8 @@ hb.stop();
 
 ### Modifications ###
 
+* v1.0.3
+    * Compatibility since node v0.10
 * v1.0.2
     * Fix README w/ per-version modifications
 * v1.0.1

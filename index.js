@@ -5,5 +5,5 @@
 
 'use strict';
 
-const Heartbeat = require('./src/heartbeat');
+var Heartbeat = require('./src/heartbeat');
 module.exports = Heartbeat;

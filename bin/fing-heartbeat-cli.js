@@ -6,14 +6,14 @@
 
 'use strict';
 
-const Heartbeat = require("../src/heartbeat");
+var Heartbeat = require("../src/heartbeat");
 
-const root = require('root-require');
-const argparse = require('argparse');
-const macaddress = require('macaddress');
-const pkg = root('package.json');
-const name = pkg.name;
-const version = pkg.version;
+var root = require('root-require');
+var argparse = require('argparse');
+var macaddress = require('macaddress');
+var pkg = root('package.json');
+var name = pkg.name;
+var version = pkg.version;
 
 var hb = null;
 

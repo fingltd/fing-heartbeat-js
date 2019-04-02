@@ -4,16 +4,16 @@
 
 'use strict';
 
-const os = require('os');
-const request = require('request-promise');
+var os = require('os');
+var request = require('request-promise');
 
 // Period
-const PERIOD = 5 * 60 * 1000;
+var PERIOD = 5 * 60 * 1000;
 
 // Statuses
-const OK = "OK";
-const REROUTE = "REROUTE";
-const FAIL = "FAIL";
+var OK = "OK";
+var REROUTE = "REROUTE";
+var FAIL = "FAIL";
 
 function Heartbeat(server, key, mac, gateway, uuid, brand, model, platform) {
 
