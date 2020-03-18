@@ -19,7 +19,7 @@ fing-heartbeat-cli --help
 var Heartbeat = require(“fing-heartbeat”);
 
 var server = "hb.example.com";
-var api_key = "2664a5e44f0f13400f261b41b7ccabaa";
+var api_key = "xxxxxxxxx"; # Ask to repo owner
 var mac = "00:70:07:00:70:07";
 var gatewayMac = "DE:AD:C0:DE:BE:EF"
  
